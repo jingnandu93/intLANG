@@ -53,8 +53,14 @@ for st = 1:3
     pids  = {S([S.study] == st).pid};
     zmats = cellfun(@(p) getfield(load(fullfile(cfg.out_dir, [p '_roi2roi_fc.mat'])), 'zmat'), ...
                     pids, 'UniformOutput', false);
-    s04_fig3_within_between(cfg, zmats, cfg.study_names{st}, ...
-                            fullfile(cfg.out_dir, sprintf('Fig3_study%d.png', st)));
+    res = s04_fig3_within_between(cfg, zmats, cfg.study_names{st}, ...
+                                  fullfile(cfg.out_dir, sprintf('Fig3_study%d.png', st)));
+    % per-participant values (Fisher z) for the R statistics in stats_R/
+    src = fullfile(cfg.out_dir, 'source_data');
+    if ~exist(src, 'dir'), mkdir(src); end
+    writetable(table(pids(:), res.within_I, res.within_A, res.between, 'VariableNames', ...
+               {'PID', 'within_intLANG', 'within_aLANG', 'between'}), ...
+               fullfile(src, sprintf('fig3_study%d.csv', st)));
 end
 
 %% 5. Task responses per region and per network  (Fig. 5, 6, Table 1)
@@ -70,13 +76,20 @@ for i = 1:numel(S)
     for c = 1:numel(contrasts)
         f = fullfile(sd, 'task', [contrasts{c} '.dscalar.nii']);
         if ~exist(f, 'file'), continue; end      % Study 2 has no Sentence Processing task
-        task.(contrasts{c}).roi(i, :) = s05_task_response(cfg, ...
-            fullfile(sd, 'anchor_regions.dscalar.nii'), f, cfg.roi_ids);
-        task.(contrasts{c}).net(i, :) = s05_task_response(cfg, ...
-            fullfile(sd, 'network_mask.dscalar.nii'), f, [1 2]);   % [intLANG aLANG]
+        anchors = fullfile(sd, 'anchor_regions.dscalar.nii');
+        task.(contrasts{c}).roi(i, :) = s05_task_response(cfg, anchors, f, cfg.roi_ids);
+        task.(contrasts{c}).net(i, :) = s05_task_response(cfg, anchors, f, ...
+                                        {cfg.intLANG_ids, cfg.aLANG_ids});   % [intLANG aLANG]
     end
 end
 save(fullfile(cfg.out_dir, 'task_responses.mat'), 'task', 'S', 'contrasts');
+% per-participant values for the R statistics in stats_R/ (NA = contrast not acquired)
+for c = 1:numel(contrasts)
+    T = [table({S.pid}', [S.study]', 'VariableNames', {'PID', 'study'}), ...
+         array2table(task.(contrasts{c}).net, 'VariableNames', {'intLANG', 'aLANG'}), ...
+         array2table(task.(contrasts{c}).roi, 'VariableNames', cfg.roi_names)];
+    writetable(T, fullfile(cfg.out_dir, 'source_data', ['task_' contrasts{c} '.csv']));
+end
 
 %% 6. Phonological contrasts: intLANG vs aLANG, per study  (Fig. 5)
 for st = 1:3

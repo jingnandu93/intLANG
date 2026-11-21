@@ -5,22 +5,31 @@ Jingnan Du, Anne Billot, Wendy Sun, Gregory Hickok, Mark Eldaief, Randy L. Buckn
 
 This folder contains MATLAB code for the core analyses that identify the intermediate
 language network (**intLANG**) and the association language network (**aLANG**) within
-individuals and test how they differ. Each script corresponds to a figure or table in the
-manuscript. The code starts from preprocessed data: surface time series on fsaverage6,
+individuals and test how they differ. It covers the analyses behind Figs. 1, 3, 5 and 6
+and Table 1. The code starts from preprocessed data: surface time series on fsaverage6,
 vertex-wise functional connectivity matrices and task contrast z-maps, all produced by the
-iProc pipeline (Braga et al. 2019).
+iProc pipeline (Braga et al. 2019). Preprocessing and the cerebellar analyses (Fig. 4)
+are not included here.
 
 ## Requirements
 
 | Software | Version used | Purpose |
 |---|---|---|
 | MATLAB | R2019a | all analyses (no toolboxes required) |
-| R | 4.4.1 | statistical tests reported in the manuscript; s04–s08 implement the same tests in MATLAB |
+| R | 4.4.1 | statistical tests reported in the manuscript (`stats_R/`, base R only) |
 | FreeSurfer | 6.0.0 | `MRIread` for surface runs |
 | cifti-matlab | – | `ciftiopen` / `ciftisavereset` |
 | Connectome Workbench | 1.3.2 | `wb_command`; border drawing and seed inspection in `wb_view` |
 
 Edit the paths in `config_example.m`, then step through `run_all_example.m` section by section.
+Steps 4 and 5 write the per-participant values to `outputs/source_data/`; the statistics
+reported in the manuscript are then computed in R:
+
+```
+Rscript stats_R/run_all_stats.R outputs/source_data
+```
+
+The MATLAB functions s04 and s06–s08 run the same tests and give identical results.
 
 ## Layout
 
@@ -38,7 +47,19 @@ scripts/
   s07_table1_region_pairs.m       3 x 5 region-pair tests, pooled             Table 1
   s08_fig6_double_dissociation.m  2 x 2 repeated-measures ANOVA + post hoc    Fig. 6
 utils/                    CIFTI I/O, Pearson correlation, Fisher z, paired t-test
+stats_R/                  statistical tests in R (as reported in the manuscript)
+  run_all_stats.R                 runs all tests below on the source_data CSV files
+  fig3_within_between.R           within > between network FC, one-tailed     Fig. 3
+  fig5_phonology.R                intLANG vs aLANG, network and region level  Fig. 5
+  table1_region_pairs.R           3 x 5 region-pair tests, pooled             Table 1
+  fig6_double_dissociation.R      2 x 2 repeated-measures ANOVA + post hoc    Fig. 6
+  stats_utils.R                   paired t-test with Cohen's dz
 ```
+
+`source_data/` CSV files (one row per participant):
+`fig3_study{1,2,3}.csv` (PID, within_intLANG, within_aLANG, between; Fisher z) and
+`task_{RhymeFace,NonwordFix,SentenceNonword}.csv` (PID, study, intLANG, aLANG, and the
+eight regions; NaN where a contrast was not acquired).
 
 ## Analysis logic
 
@@ -59,8 +80,9 @@ utils/                    CIFTI I/O, Pearson correlation, Fisher z, paired t-tes
    participant, the mean z is taken over the 3 within-intLANG pairs, the 10 within-aLANG
    pairs and the 15 between-network pairs, and within > between is tested with a
    one-tailed paired t-test.
-5. **Function (s05–s08).** Task z-maps are averaged within each region and within each
-   network. intLANG vs aLANG is tested with two-tailed paired t-tests. Fig. 6 uses a
+5. **Function (s05–s08).** Task z-maps are averaged within each anchor region and within
+   each network, where a network's value is the mean over all vertices of its anchor
+   regions. intLANG vs aLANG is tested with two-tailed paired t-tests. Fig. 6 uses a
    2 (network) × 2 (contrast) repeated-measures ANOVA.
 
 ## Statistical conventions
@@ -81,7 +103,6 @@ Effect sizes are Cohen's dz = mean(difference) / SD(difference).
 <data_dir>/<PID>/dataset2/{lh,rh}_runs.txt       fsaverage6 surface runs, one path per line
 <data_dir>/<PID>/zones/<PID>_<region>_zone.dscalar.nii
 <data_dir>/<PID>/anchor_regions.dscalar.nii      written by s02
-<data_dir>/<PID>/network_mask.dscalar.nii        1 = intLANG, 2 = aLANG
 <data_dir>/<PID>/task/{RhymeFace,NonwordFix,SentenceNonword}.dscalar.nii
 ```
 
@@ -89,7 +110,10 @@ Vertex indices in `config_example.m` are 1-based MATLAB indices into the 81,924-
 fsaverage6 array (left hemisphere first). `wb_view` displays the 0-based index, which is
 the seed value minus 1.
 
-## Data availability
+## Code and data availability
+
+Code: https://github.com/jingnandu93/intLANG (this repository), released under the MIT
+License (see `LICENSE`).
 
 Individual participant data are available through the NIH Data Archive
 (https://nda.nih.gov). Task descriptions, contrast descriptions and analysis code are on

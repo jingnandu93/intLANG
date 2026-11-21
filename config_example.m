@@ -68,7 +68,6 @@ cfg.study_names = {'Discovery (Study 1)','Replication (Study 2)','Triplication (
 % <data_dir>/<PID>/dataset{1,2}/corr_mat_r2z.mat      : vertex-wise FC matrix (zCorrs)
 % <data_dir>/<PID>/dataset2/lh_runs.txt, rh_runs.txt  : one fsaverage6 surface run per line
 % <data_dir>/<PID>/anchor_regions.dscalar.nii         : labels 1-8 (section 3)
-% <data_dir>/<PID>/network_mask.dscalar.nii           : 1 = intLANG, 2 = aLANG
 % <data_dir>/<PID>/task/<contrast>.dscalar.nii         : task z-maps, e.g.
 %        RhymeFace.dscalar.nii, NonwordFix.dscalar.nii, SentenceNonword.dscalar.nii
 cfg.subj_dir = @(pid) fullfile(cfg.data_dir, pid);
