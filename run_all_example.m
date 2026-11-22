@@ -1,7 +1,7 @@
-%% RUN_ALL_EXAMPLE  Order of operations for Du et al. (2026), one section per figure.
+%% Example analyses for Du et al. (2026).
 %
-% Run section by section (Ctrl+Enter). Step 3 reads full fMRI time series and
-% is best run per participant on a cluster; the other steps are fast.
+% Run one section at a time (Ctrl+Enter). Step 3 reads full fMRI time series and
+% can be run one participant at a time on a cluster.
 %
 % Software: MATLAB R2019a, FreeSurfer 6.0.0 (MRIread),
 % cifti-matlab (ciftiopen/ciftisavereset), Connectome Workbench (wb_command).

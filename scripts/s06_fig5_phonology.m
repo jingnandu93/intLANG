@@ -6,7 +6,7 @@ function res = s06_fig5_phonology(cfg, roi_vals, net_vals, label)
 %   roi_vals : [participants x 8] from s05 (cfg.roi_names order)
 %   net_vals : [participants x 2] from s05, columns [intLANG aLANG]
 %
-% Tests (paired, TWO-tailed, Cohen's dz):
+% Tests (paired, two-tailed, Cohen's dz):
 %   1. network level            : intLANG vs aLANG              (Fig. 5 left)
 %   2. region level             : mean of 3 intLANG regions vs mean of 5 aLANG
 %                                 regions                       (Fig. 5 right)

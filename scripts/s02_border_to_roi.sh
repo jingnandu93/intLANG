@@ -4,7 +4,7 @@
 # Methods, "Anchor region definitions": each anchor region was defined by
 # (1) drawing a generous border around the anatomical zone on the individual's
 #     inflated surface in Connectome Workbench,
-# (2) converting the border to a mask with wb_command  <-- this script,
+# (2) converting the border to a mask with wb_command (this script),
 # (3) intersecting the mask with that individual's Dataset 1 network estimate
 #     (s02_anchor_regions.m).
 #

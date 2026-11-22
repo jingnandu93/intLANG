@@ -1,4 +1,4 @@
-## Statistical tests reported in Du et al. (2026), run in R v4.4.1 (base R only).
+## Run the statistical tests for Du et al. (2026) in base R 4.4.1.
 ##
 ## Usage:  Rscript stats_R/run_all_stats.R <source_data_dir>
 ##   <source_data_dir> holds the per-participant CSV files written by

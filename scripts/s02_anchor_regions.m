@@ -12,7 +12,7 @@ function labels = s02_anchor_regions(cfg, pid, zone_files, intLANG_mask_file, aL
 %   intLANG_mask_file / aLANG_mask_file :
 %                binary Dataset 1 network estimates from s01_seed_map
 %
-% Each anchor region = drawn zone  AND  the participant's own network estimate,
+% Intersect each drawn zone with the corresponding Dataset 1 network mask.
 
 
 

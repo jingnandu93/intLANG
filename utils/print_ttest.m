@@ -1,5 +1,5 @@
 function print_ttest(label, s, name_a, name_b)
-% PRINT_TTEST  Print a paired_ttest result in the format used in the manuscript.
+% PRINT_TTEST  Print the results of a paired t-test.
 if nargin < 3, name_a = 'A'; name_b = 'B'; end
 fprintf('%s (N = %d)\n', label, s.n);
 fprintf('  %-8s mean = %.3f | %-8s mean = %.3f | diff = %.3f (SD %.3f)\n', ...

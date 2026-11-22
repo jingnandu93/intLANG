@@ -9,9 +9,9 @@ function [zcol, mask] = s01_seed_map(cfg, corr_mat_file, seed, thr, out_prefix)
 %   seed          : single seed vertex (1-based column index; see config)
 %   thr           : per-participant z(r) threshold (see config)
 %
-% The seed's column of the matrix is its correlation map, z(r). The network
-% estimate is the set of vertices with z(r) > thr. matfile() reads only the
-% requested column, so the full matrix is never loaded into memory.
+% The seed column contains the Fisher z map. The network
+% mask includes vertices with z(r) > thr. matfile() reads the
+% requested column from a v7.3 MAT-file.
 % Networks are defined in Dataset 1; the same seed applied to the Dataset 2
 % matrix gives the within-individual replication.
 

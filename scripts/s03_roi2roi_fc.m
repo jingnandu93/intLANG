@@ -3,8 +3,7 @@ function zmat = s03_roi2roi_fc(cfg, pid, anchor_file, out_file)
 %
 %   zmat = s03_roi2roi_fc(cfg, 'P1', anchor_file, out_file)
 %
-%
-% Output zmat is in cfg.roi_names order (intLANG rows/cols 1:3, aLANG 4:8).
+% Rows and columns follow cfg.roi_names (intLANG 1:3, aLANG 4:8).
 
 labels = read_cifti(anchor_file, cfg);
 sdir = cfg.subj_dir(pid);

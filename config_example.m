@@ -1,15 +1,15 @@
 function cfg = config_example()
 % CONFIG_EXAMPLE  Paths, software and per-participant parameters.
 %
-% Edit the paths in section 1 for your system. Everything else mirrors the
-% values reported in Du et al. (2026) "Multiple Nested Distributed Networks
-% in the Human Brain Support Language" and should not need changing.
+% Set the paths in section 1 before running the example. The remaining
+% settings follow Du et al. (2026), "Multiple Nested Distributed Networks
+% in the Human Brain Support Language."
 %
 % Naming used throughout this code release follows the manuscript:
 %   intLANG = intermediate language network
 %   aLANG   = association language network
 
-%% 1. Paths (EDIT THESE) ---------------------------------------------------
+%% 1. Paths (EDIT THESE)
 cfg.wb_command   = 'wb_command';             % Connectome Workbench binary
 cfg.cifti_matlab = '/path/to/cifti-matlab';   % provides ciftiopen / ciftisavereset
 cfg.freesurfer_matlab = '/path/to/freesurfer/matlab';   % provides MRIread
@@ -19,19 +19,19 @@ cfg.fs6_template = '/path/to/fsaverage6_cifti_template.dscalar.nii';
 cfg.data_dir     = '/path/to/data';
 cfg.out_dir      = fullfile(pwd, 'outputs');
 
-%% 2. Surface constants ----------------------------------------------------
+%% 2. Surface constants
 cfg.n_vert_hemi = 40962;                 % fsaverage6 vertices per hemisphere
 cfg.n_vert      = 2 * cfg.n_vert_hemi;   % 81,924
 
-%% 3. Anchor regions (fixed label IDs used in every ROI file) --------------
-% Each participant's anchor-region dscalar must use THESE integer labels.
+%% 3. Anchor regions (fixed label IDs used in every ROI file)
+% Use these integer labels in every participant’s anchor-region dscalar.
 % Fixing the IDs by name avoids depending on file-listing order.
 cfg.roi_names  = {'dPCSA','vPCSA','Spt','IFG','pMFG','aSTS','mSTS','pSTS'};
 cfg.roi_ids    = 1:8;
 cfg.intLANG_ids = 1:3;     % dPCSA, vPCSA, Spt
 cfg.aLANG_ids   = 4:8;     % IFG, pMFG, aSTS, mSTS, pSTS
 
-%% 4. Participants ---------------------------------------------------------
+%% 4. Participants
 % Study 1 = Discovery (P1-P5), Study 2 = Replication (S1-S9),
 % Study 3 = Triplication (P6-P9, P12-P15). P10/P11 were excluded (see Methods).
 % intLANG seed = single fsaverage6 vertex (1-based MATLAB column index into
@@ -64,7 +64,7 @@ cfg.subjects = cell2struct(P, {'pid','study','intLANG_seed','intLANG_thr', ...
                                 'aLANG_seed','aLANG_thr'}, 2);
 cfg.study_names = {'Discovery (Study 1)','Replication (Study 2)','Triplication (Study 3)'};
 
-%% 5. Expected per-participant input files ---------------------------------
+%% 5. Expected per-participant input files
 % <data_dir>/<PID>/dataset{1,2}/corr_mat_r2z.mat      : vertex-wise FC matrix (zCorrs)
 % <data_dir>/<PID>/dataset2/lh_runs.txt, rh_runs.txt  : one fsaverage6 surface run per line
 % <data_dir>/<PID>/anchor_regions.dscalar.nii         : labels 1-8 (section 3)

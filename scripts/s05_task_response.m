@@ -1,5 +1,5 @@
 function vals = s05_task_response(cfg, label_file, task_map_file, label_ids)
-% S05_TASK_RESPONSE  Mean task z-value within each label of a label map (Fig. 5, 6).
+% S05_TASK_RESPONSE  Average task z values by region or group (Figs. 5 and 6).
 %
 %   vals = s05_task_response(cfg, label_file, task_map_file, label_ids)
 %

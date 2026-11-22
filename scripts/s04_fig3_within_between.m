@@ -5,7 +5,6 @@ function res = s04_fig3_within_between(cfg, zmats, cohort_label, png_file)
 %
 %   zmats : cell array, one 8 x 8 Fisher-z matrix per participant (s03 output)
 %
-%
 % Manuscript values for reference:
 %   Study 1: t(4) = 6.40, dz = 2.86 | t(4) = 9.47, dz = 4.24
 %   Study 2: t(8) = 13.42, dz = 4.47 | t(8) = 8.15, dz = 2.72

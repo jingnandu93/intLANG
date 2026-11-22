@@ -2,8 +2,8 @@
 ##
 ## Input: source_data/task_RhymeFace.csv (N = 22, Studies 1-3) and
 ##        source_data/task_NonwordFix.csv (N = 13, Studies 1 and 3).
-## 3 x 5 paired, two-tailed t-tests. These are not independent tests; they
-## explore whether the network-level effect holds for every pair of regions.
+## Run two-tailed paired t-tests for the 3 x 5 region pairs. The tests share
+## participants and ask whether the network-level difference holds for each pair.
 ## Cell = significance (intLANG region mean / aLANG region mean).
 
 table1_region_pairs <- function(data_dir, out_dir = data_dir) {
