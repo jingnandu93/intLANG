@@ -11,13 +11,13 @@ is outside the scope of this example.
 
 ## Requirements
 
-| Software | Version used | Purpose |
-|---|---|---|
-| MATLAB | R2019a | surface and task analyses (no toolboxes required) |
-| R | 4.4.1 | statistical tests reported in the manuscript (`stats_R/`, base R only) |
-| FreeSurfer | 6.0.0 | `MRIread` for surface runs |
-| cifti-matlab | – | `ciftiopen` / `ciftisavereset` |
-| Connectome Workbench | 1.3.2 | `wb_command`; border drawing and seed inspection in `wb_view` |
+| Software | Version used
+|---|---
+| MATLAB | R2019a 
+| R | 4.4.1 
+| FreeSurfer | 6.0.0 
+| cifti-matlab | – 
+| Connectome Workbench | 1.3.2 
 
 ## Code and data availability
 
